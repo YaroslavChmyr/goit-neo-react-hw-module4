@@ -1,0 +1,37 @@
+.header {
+  padding: 10px;
+  background-color: #3455eb;
+}
+
+.searchBar {
+  display: flex;
+  justify-content: center;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.iconButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 20px;
+  color: #333;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 5px;
+  border: none;
+  font-size: 16px;
+  outline: none;
+}
