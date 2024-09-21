@@ -3,7 +3,9 @@ import ImageGallery from "./components/ImageGallery/ImageGallery";
 import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
+import ImageModal from "./components/ImageModal/ImageModal";
 import axios from "axios";
+import css from "./App.module.css";
 import { useState } from "react";
 
 const CLIENT_ID = "q8K-hn8CmZ4p8o3ZENauWeqzH9ggaqdJR7d788qieXM";
@@ -15,6 +17,8 @@ function App() {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const fetchImages = async (query, page = 1) => {
     setIsLoading(true);
@@ -55,14 +59,31 @@ function App() {
     fetchImages(query, nextPage);
   };
 
+  const openModal = (image) => {
+    setSelectedImage(image);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedImage(null);
+  };
+
   return (
-    <>
+    <div className={css.container}>
       <SearchBar onSubmit={onSubmit} />
       {error && <ErrorMessage error={error} />}
-      <ImageGallery images={images} />
+      <ImageGallery images={images} onImageClick={openModal} />
       {isLoading && <Loader />}
       {!isLoading && images.length > 0 && <LoadMoreBtn onClick={onLoadMore} />}
-    </>
+      {selectedImage && (
+        <ImageModal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          image={selectedImage}
+        />
+      )}
+    </div>
   );
 }
 
