@@ -1,19 +1,18 @@
 import { IoIosSearch } from "react-icons/io";
 import css from "./SearchBar.module.css";
-import toast, { Toaster } from 'react-hot-toast';
-
+import toast, { Toaster } from "react-hot-toast";
 
 const SearchBar = ({ onSubmit }) => {
+  const emptySearchError = () =>
+    toast.error("Search field cannot be empty", {
+      position: "top-right",
+    });
 
-  const notify = () => toast.error('Search field cannot be empty', {
-    position: 'top-right'
-  });
-
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
-    if (form.elements.query.value.trim() === '') {
-      notify();
+    if (form.elements.query.value.trim() === "") {
+      emptySearchError();
       form.reset();
       return;
     }
@@ -40,7 +39,6 @@ const SearchBar = ({ onSubmit }) => {
       </form>
       <Toaster />
     </header>
-    
   );
 };
 
